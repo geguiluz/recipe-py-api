@@ -1,5 +1,5 @@
 ---
-names: Checks
+name: Checks
 on: [push]
 
 jobs:
@@ -14,5 +14,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout
         uses: actions/checkout@v2
-      - name: docker-compose run --rm app
+      - name: Test
+        run: docker-compose run --rm app sh -c "python manage.py test"
+      - name: Lint
+        run: doocker-compose run --rm app sh -c "flake8"
 
